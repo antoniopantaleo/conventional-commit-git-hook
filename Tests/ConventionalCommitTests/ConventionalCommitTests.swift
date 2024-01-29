@@ -6,7 +6,7 @@
 //
 
 import XCTest
-import ConventionalCommit
+@testable import ConventionalCommit
 
 final class ConventionalCommitTests: XCTestCase {
     
@@ -37,6 +37,17 @@ final class ConventionalCommitTests: XCTestCase {
         let isValid = ConventionalCommit.isValid(messages: [message])
         // Then
         XCTAssertTrue(isValid)
+    }
+    
+    func test_headerMessageThatStartsWithAValidTypeIsValid() {
+        // When
+        let types = ConventionalCommitType.allCases.map(\.rawValue)
+        types.forEach { type in
+            let message = "\(type): hello world"
+            let isValid = ConventionalCommit.isValid(messages: [message])
+            // Then
+            XCTAssertTrue(isValid)
+        }
     }
     
 }
