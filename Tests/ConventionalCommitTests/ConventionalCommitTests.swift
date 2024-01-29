@@ -10,42 +10,43 @@ import XCTest
 
 final class ConventionalCommitTests: XCTestCase {
     
-    func test_noMessagesAreInvalid() {
+    func test_emptyHeaderMessageIsNotValid() {
         // When
-        let isValid = ConventionalCommit.isValid(messages: [])
+        let isValid = ConventionalCommit.isValid(header: "")
         // Then
         XCTAssertFalse(isValid)
     }
     
-    func test_emptyStringFirstMessageIsInvalid() {
-        // When
-        let isValid = ConventionalCommit.isValid(messages: [""])
-        // Then
-        XCTAssertFalse(isValid)
-    }
-    
-    func test_notFormattedCommitMessageIsInvalid() {
+    func test_headerMessagwWithMissingTypeIsNotValid() {
         // When
         let header = "Hello world"
-        let isValid = ConventionalCommit.isValid(messages: [header])
+        let isValid = ConventionalCommit.isValid(header: header)
         // Then
         XCTAssertFalse(isValid)
     }
     
-    func test_formattedOnlyHeaderCommitMessageIsValid() {
+    func test_headerMessageWithTypeAndMessageIsValid() {
         // When
         let header = "feat: hello world"
-        let isValid = ConventionalCommit.isValid(messages: [header])
+        let isValid = ConventionalCommit.isValid(header: header)
         // Then
         XCTAssertTrue(isValid)
     }
     
-    func test_headerMessageThatStartsWithAValidTypeIsValid() {
+    func test_headerMessageWithWordBeforeTypeAndMessageIsNotValid() {
+        // When
+        let header = "hello feat: hello world"
+        let isValid = ConventionalCommit.isValid(header: header)
+        // Then
+        XCTAssertFalse(isValid)
+    }
+    
+    func test_headerThatStartsWithAValidTypeIsValid() {
         // When
         let types = ConventionalCommitType.allCases.map(\.rawValue)
         types.forEach { type in
             let header = "\(type): hello world"
-            let isValid = ConventionalCommit.isValid(messages: [header])
+            let isValid = ConventionalCommit.isValid(header: header)
             // Then
             XCTAssertTrue(isValid)
         }
@@ -54,7 +55,7 @@ final class ConventionalCommitTests: XCTestCase {
     func test_headerMessageWithNoColonAfterTypeIsNotValid() {
         // When
         let header = "feat hello world"
-        let isValid = ConventionalCommit.isValid(messages: [header])
+        let isValid = ConventionalCommit.isValid(header: header)
         // Then
         XCTAssertFalse(isValid)
     }
@@ -62,7 +63,7 @@ final class ConventionalCommitTests: XCTestCase {
     func test_headerMessageWithNoSpaceAfterColonIsNotValid() {
         // When
         let header = "feat:hello world"
-        let isValid = ConventionalCommit.isValid(messages: [header])
+        let isValid = ConventionalCommit.isValid(header: header)
         // Then
         XCTAssertFalse(isValid)
     }
@@ -70,15 +71,15 @@ final class ConventionalCommitTests: XCTestCase {
     func test_headerMessageWithNoMessageAfterTypeIsNotValid() {
         // When
         let header = "feat: "
-        let isValid = ConventionalCommit.isValid(messages: [header])
+        let isValid = ConventionalCommit.isValid(header: header)
         // Then
         XCTAssertFalse(isValid)
     }
     
-    func test_headerMessageWithBreakingChangeExclamationIsValid() {
+    func test_headerMessageWithBreakingChangeExclamationAndNoScopeIsValid() {
         // When
         let header = "feat!: hello world"
-        let isValid = ConventionalCommit.isValid(messages: [header])
+        let isValid = ConventionalCommit.isValid(header: header)
         // Then
         XCTAssertTrue(isValid)
     }
@@ -87,16 +88,25 @@ final class ConventionalCommitTests: XCTestCase {
         // Given
         let header = "chore(): hello world"
         // When
-        let isValid = ConventionalCommit.isValid(messages: [header])
+        let isValid = ConventionalCommit.isValid(header: header)
         // Then
         XCTAssertFalse(isValid)
     }
     
-    func test_headerMessageWithScopeWithinBracketsIsValid() {
+    func test_headerMessageWithNoScopeAndSpacesWitihinBracketsIsNotValid() {
+        // Given
+        let header = "chore(   ): hello world"
+        // When
+        let isValid = ConventionalCommit.isValid(header: header)
+        // Then
+        XCTAssertFalse(isValid)
+    }
+    
+    func test_headerMessageWithTypeAndScopeWithinBracketsIsValid() {
         // Given
         let header = "chore(scope): hello world"
         // When
-        let isValid = ConventionalCommit.isValid(messages: [header])
+        let isValid = ConventionalCommit.isValid(header: header)
         // Then
         XCTAssertTrue(isValid)
     }
@@ -105,7 +115,16 @@ final class ConventionalCommitTests: XCTestCase {
         // Given
         let header = "chore(hello-world): hello world"
         // When
-        let isValid = ConventionalCommit.isValid(messages: [header])
+        let isValid = ConventionalCommit.isValid(header: header)
+        // Then
+        XCTAssertTrue(isValid)
+    }
+    
+    func test_headerMessageWithTwoWordsScopeWithinBracketsAndBreakingChangeExclamationIsValid() {
+        // Given
+        let header = "chore(hello-world)!: hello world"
+        // When
+        let isValid = ConventionalCommit.isValid(header: header)
         // Then
         XCTAssertTrue(isValid)
     }
@@ -114,7 +133,7 @@ final class ConventionalCommitTests: XCTestCase {
         // Given
         let header = "chore(Hello-WOrld): hello world"
         // When
-        let isValid = ConventionalCommit.isValid(messages: [header])
+        let isValid = ConventionalCommit.isValid(header: header)
         // Then
         XCTAssertFalse(isValid)
     }
@@ -123,7 +142,7 @@ final class ConventionalCommitTests: XCTestCase {
         // Given
         let header = "chore(HELLO): hello world"
         // When
-        let isValid = ConventionalCommit.isValid(messages: [header])
+        let isValid = ConventionalCommit.isValid(header: header)
         // Then
         XCTAssertFalse(isValid)
     }
@@ -132,7 +151,7 @@ final class ConventionalCommitTests: XCTestCase {
         // Given
         let header = "chore(-): hello world"
         // When
-        let isValid = ConventionalCommit.isValid(messages: [header])
+        let isValid = ConventionalCommit.isValid(header: header)
         // Then
         XCTAssertFalse(isValid)
     }
@@ -141,7 +160,7 @@ final class ConventionalCommitTests: XCTestCase {
         // Given
         let header = "chore(-helloworld-): hello world"
         // When
-        let isValid = ConventionalCommit.isValid(messages: [header])
+        let isValid = ConventionalCommit.isValid(header: header)
         // Then
         XCTAssertFalse(isValid)
     }
@@ -150,7 +169,7 @@ final class ConventionalCommitTests: XCTestCase {
         // Given
         let header = "chore(-hello-world-): hello world"
         // When
-        let isValid = ConventionalCommit.isValid(messages: [header])
+        let isValid = ConventionalCommit.isValid(header: header)
         // Then
         XCTAssertFalse(isValid)
     }
@@ -159,7 +178,7 @@ final class ConventionalCommitTests: XCTestCase {
         // Given
         let header = "chore(hello-world-): hello world"
         // When
-        let isValid = ConventionalCommit.isValid(messages: [header])
+        let isValid = ConventionalCommit.isValid(header: header)
         // Then
         XCTAssertFalse(isValid)
     }
@@ -168,7 +187,7 @@ final class ConventionalCommitTests: XCTestCase {
         // Given
         let header = "chore(-hello-world): hello world"
         // When
-        let isValid = ConventionalCommit.isValid(messages: [header])
+        let isValid = ConventionalCommit.isValid(header: header)
         // Then
         XCTAssertFalse(isValid)
     }

@@ -9,8 +9,7 @@ import Foundation
 
 public enum ConventionalCommit {
     
-    public static func isValid(messages: [String]) -> Bool {
-        guard let header = messages.first else { return false }
+    public static func isValid(header: String) -> Bool {
         let types = ConventionalCommitType.allCases.map(\.rawValue).joined(separator:"|")
         let scope = #"(\([a-z]+(?:-[a-z]+)*[a-z]\))?"#
         let breakingChange = "(!)?"
