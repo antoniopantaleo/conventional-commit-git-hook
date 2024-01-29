@@ -8,7 +8,7 @@ on:
 
 jobs:
   run_tests:
-    runs-on: macos-13
+    runs-on: macos-14
     name: Run test suite
     steps:
     - uses: actions/checkout@v3
