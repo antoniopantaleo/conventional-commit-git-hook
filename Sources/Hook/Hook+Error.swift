@@ -15,12 +15,12 @@ extension Hook {
         var message: String {
             switch self {
             case .invalidCommit:
-                """
+                return """
         Invalid commit message format. Please follow conventional commit standards.
         Visit https://www.conventionalcommits.org for reference.
         """
             case .noCommitMessage:
-                "Unable to retrieve a commit message"
+                return "Unable to retrieve a commit message"
             }
         }
     }
