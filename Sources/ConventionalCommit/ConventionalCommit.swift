@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+public enum ConventionalCommit {
+    
+    public static func isValid(messages: [String]) -> Bool {
+        false
+    }
+}

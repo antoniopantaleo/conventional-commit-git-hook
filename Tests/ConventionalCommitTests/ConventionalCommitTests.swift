@@ -10,4 +10,11 @@ import ConventionalCommit
 
 final class ConventionalCommitTests: XCTestCase {
     
+    func test_noMessagesAreInvalid() {
+        // When
+        let isValid = ConventionalCommit.isValid(messages: [])
+        // Then
+        XCTAssertFalse(isValid)
+    }
+    
 }
