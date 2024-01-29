@@ -58,4 +58,12 @@ final class ConventionalCommitTests: XCTestCase {
         XCTAssertFalse(isValid)
     }
     
+    func test_messageWithNoSpaceAfterColonIsNotValid() {
+        // When
+        let message = "feat:hello world"
+        let isValid = ConventionalCommit.isValid(messages: [message])
+        // Then
+        XCTAssertFalse(isValid)
+    }
+    
 }
