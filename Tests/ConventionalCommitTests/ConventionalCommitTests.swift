@@ -31,4 +31,12 @@ final class ConventionalCommitTests: XCTestCase {
         XCTAssertFalse(isValid)
     }
     
+    func test_formattedOnlyHeaderCommitMessageIsValid() {
+        // When
+        let message = "feat: hello world"
+        let isValid = ConventionalCommit.isValid(messages: [message])
+        // Then
+        XCTAssertTrue(isValid)
+    }
+    
 }
