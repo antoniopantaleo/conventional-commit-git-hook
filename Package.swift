@@ -4,7 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "ConventionalCommit",
-    platforms: [.macOS(.v11)],
+    platforms: [.macOS(.v13)],
     products: [
         .executable(
             name: "commit-msg",
@@ -12,7 +12,12 @@ let package = Package(
         )
     ],
     targets: [
-        .target(name: "ConventionalCommit"),
+        .target(
+            name: "ConventionalCommit",
+            swiftSettings: [
+                .enableUpcomingFeature("BareSlashRegexLiterals")
+            ]
+        ),
         .testTarget(
             name: "ConventionalCommitTests",
             dependencies: [
