@@ -110,7 +110,7 @@ final class ConventionalCommitTests: XCTestCase {
         XCTAssertTrue(isValid)
     }
     
-    func test_headerMessageWithCapitalizedScopeWithinBracketsIsNotValid() {
+    func test_headerMessageWithSemiCapitalizedScopeWithinBracketsIsNotValid() {
         // Given
         let header = "chore(Hello-WOrld): hello world"
         // When
@@ -119,5 +119,57 @@ final class ConventionalCommitTests: XCTestCase {
         XCTAssertFalse(isValid)
     }
     
+    func test_headerMessageWithFullCapitalizedScopeWithinBracketsIsNotValid() {
+        // Given
+        let header = "chore(HELLO): hello world"
+        // When
+        let isValid = ConventionalCommit.isValid(messages: [header])
+        // Then
+        XCTAssertFalse(isValid)
+    }
     
+    func test_headerMessageWithNoLetterScopeWithinBracketsIsNotValid() {
+        // Given
+        let header = "chore(-): hello world"
+        // When
+        let isValid = ConventionalCommit.isValid(messages: [header])
+        // Then
+        XCTAssertFalse(isValid)
+    }
+    
+    func test_headerMessageWithLeadingTrailingDashScopeWithinBracketsIsNotValid() {
+        // Given
+        let header = "chore(-helloworld-): hello world"
+        // When
+        let isValid = ConventionalCommit.isValid(messages: [header])
+        // Then
+        XCTAssertFalse(isValid)
+    }
+    
+    func test_headerMessageWithLeadingTrailingCenterDashScopeWithinBracketsIsNotValid() {
+        // Given
+        let header = "chore(-hello-world-): hello world"
+        // When
+        let isValid = ConventionalCommit.isValid(messages: [header])
+        // Then
+        XCTAssertFalse(isValid)
+    }
+    
+    func test_headerMessageWithTrailingDashScopeWithinBracketsIsNotValid() {
+        // Given
+        let header = "chore(hello-world-): hello world"
+        // When
+        let isValid = ConventionalCommit.isValid(messages: [header])
+        // Then
+        XCTAssertFalse(isValid)
+    }
+    
+    func test_headerMessageWithLeadingDashScopeWithinBracketsIsNotValid() {
+        // Given
+        let header = "chore(-hello-world): hello world"
+        // When
+        let isValid = ConventionalCommit.isValid(messages: [header])
+        // Then
+        XCTAssertFalse(isValid)
+    }
 }
