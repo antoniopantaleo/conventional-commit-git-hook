@@ -10,11 +10,9 @@ import Foundation
 public enum ConventionalCommit {
     
     public static func isValid(messages: [String]) -> Bool {
+        guard let header = messages.first else { return false }
         let types = ConventionalCommitType.allCases.map(\.rawValue).joined(separator:"|")
-        guard
-            let conventionalRegex = try? Regex("^(\(types))"),
-            let firstMessage = messages.first
-        else { return false }
-        return firstMessage.starts(with: conventionalRegex)
+        guard let conventionalRegex = try? Regex("^(\(types))") else { return false }
+        return header.starts(with: conventionalRegex)
     }
 }
