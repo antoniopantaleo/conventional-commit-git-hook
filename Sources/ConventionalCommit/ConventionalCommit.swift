@@ -12,7 +12,7 @@ public enum ConventionalCommit {
     public static func isValid(messages: [String]) -> Bool {
         guard let header = messages.first else { return false }
         let types = ConventionalCommitType.allCases.map(\.rawValue).joined(separator:"|")
-        guard let conventionalRegex = try? Regex("^(\(types)): ") else { return false }
+        guard let conventionalRegex = try? Regex("^(\(types)): .+") else { return false }
         return header.starts(with: conventionalRegex)
     }
 }

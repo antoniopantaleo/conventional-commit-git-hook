@@ -26,15 +26,16 @@ final class ConventionalCommitTests: XCTestCase {
     
     func test_notFormattedCommitMessageIsInvalid() {
         // When
-        let isValid = ConventionalCommit.isValid(messages: ["Hello world"])
+        let header = "Hello world"
+        let isValid = ConventionalCommit.isValid(messages: [header])
         // Then
         XCTAssertFalse(isValid)
     }
     
     func test_formattedOnlyHeaderCommitMessageIsValid() {
         // When
-        let message = "feat: hello world"
-        let isValid = ConventionalCommit.isValid(messages: [message])
+        let header = "feat: hello world"
+        let isValid = ConventionalCommit.isValid(messages: [header])
         // Then
         XCTAssertTrue(isValid)
     }
@@ -43,8 +44,8 @@ final class ConventionalCommitTests: XCTestCase {
         // When
         let types = ConventionalCommitType.allCases.map(\.rawValue)
         types.forEach { type in
-            let message = "\(type): hello world"
-            let isValid = ConventionalCommit.isValid(messages: [message])
+            let header = "\(type): hello world"
+            let isValid = ConventionalCommit.isValid(messages: [header])
             // Then
             XCTAssertTrue(isValid)
         }
@@ -58,10 +59,26 @@ final class ConventionalCommitTests: XCTestCase {
         XCTAssertFalse(isValid)
     }
     
-    func test_messageWithNoSpaceAfterColonIsNotValid() {
+    func test_headerMessageWithNoColonAfterTypeIsNotValid() {
         // When
-        let message = "feat:hello world"
-        let isValid = ConventionalCommit.isValid(messages: [message])
+        let header = "feat hello world"
+        let isValid = ConventionalCommit.isValid(messages: [header])
+        // Then
+        XCTAssertFalse(isValid)
+    }
+    
+    func test_headerMessageWithNoSpaceAfterColonIsNotValid() {
+        // When
+        let header = "feat:hello world"
+        let isValid = ConventionalCommit.isValid(messages: [header])
+        // Then
+        XCTAssertFalse(isValid)
+    }
+    
+    func test_headerMessageWithNoMessageAfterTypeIsNotValid() {
+        // When
+        let header = "feat: "
+        let isValid = ConventionalCommit.isValid(messages: [header])
         // Then
         XCTAssertFalse(isValid)
     }
