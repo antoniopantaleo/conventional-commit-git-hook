@@ -101,4 +101,13 @@ final class ConventionalCommitTests: XCTestCase {
         XCTAssertTrue(isValid)
     }
     
+    func test_headerMessageWithTwoWordsScopeWithinBracketsIsValid() {
+        // Given
+        let header = "chore(hello-world): hello world"
+        // When
+        let isValid = ConventionalCommit.isValid(messages: [header])
+        // Then
+        XCTAssertTrue(isValid)
+    }
+    
 }
