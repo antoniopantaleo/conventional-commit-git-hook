@@ -11,17 +11,17 @@ final class HookTests: XCTestCase {
     
     private let fileManager = FileManager.default
     
-    override func setUpWithError() throws {
-        try super.setUpWithError()
-        try fileManager.createDirectory(
+    override func setUp() {
+        super.setUp()
+        try? fileManager.createDirectory(
             at: temporaryCommitMessageFilePath,
             withIntermediateDirectories: false
         )
     }
     
-    override func tearDownWithError() throws {
-        try fileManager.removeItem(at: temporaryCommitMessageFilePath)
-        try super.tearDownWithError()
+    override func tearDown() {
+        try? fileManager.removeItem(at: temporaryCommitMessageFilePath)
+        super.tearDown()
     }
     
     func test_hookSuccedsWithValidCommitMessageFile() throws {
