@@ -5,6 +5,7 @@
 //  Created by Antonio Pantaleo on 27/01/24.
 //
 
+import Darwin
 
 extension Hook {
     enum Error {
