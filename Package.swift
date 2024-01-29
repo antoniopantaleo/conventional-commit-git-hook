@@ -29,6 +29,9 @@ let package = Package(
             dependencies: [
                 .target(name: "ConventionalCommit")
             ]
+        ),
+        .testTarget(
+            name: "HookTests"
         )
     ]
 )
