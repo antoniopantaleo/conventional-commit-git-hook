@@ -17,4 +17,11 @@ final class ConventionalCommitTests: XCTestCase {
         XCTAssertFalse(isValid)
     }
     
+    func test_emptyStringFirstMessageIsInvalid() {
+        // When
+        let isValid = ConventionalCommit.isValid(messages: [""])
+        // Then
+        XCTAssertFalse(isValid)
+    }
+    
 }
