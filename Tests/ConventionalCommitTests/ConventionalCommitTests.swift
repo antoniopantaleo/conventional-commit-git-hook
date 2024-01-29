@@ -83,4 +83,12 @@ final class ConventionalCommitTests: XCTestCase {
         XCTAssertFalse(isValid)
     }
     
+    func test_headerMessageWithBreakingChangeExclamationIsValid() {
+        // When
+        let header = "feat!: hello world"
+        let isValid = ConventionalCommit.isValid(messages: [header])
+        // Then
+        XCTAssertTrue(isValid)
+    }
+    
 }
