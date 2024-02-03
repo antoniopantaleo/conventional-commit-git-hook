@@ -34,7 +34,10 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "HookTests"
+            name: "HookTests",
+            dependencies: [
+                .product(name: "Logging", package: "swift-log")
+            ]
         )
     ]
 )
