@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build package
-      run: swift build
+      run: swift build --arch x86_64
     - name: Run unit tests
       run: swift test --very-verbose --enable-code-coverage
     - name: Prepare code coverage
