@@ -55,7 +55,7 @@ You can install the hook in your directory without cloning the repo just using `
 To do so, run the following command *inside* your repository directory:
 
 ```bash
-curl https://github.com/antoniopantaleo/conventional-commit-git-hook/releases/download/v0.0.1/commit-msg -o .git/hooks/commit-msg
+curl https://github.com/antoniopantaleo/conventional-commit-git-hook/releases/download/v1.0.0/commit-msg -o .git/hooks/commit-msg
 ```
 
 ## Build your own
