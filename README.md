@@ -9,7 +9,7 @@
 ![MacOS Version](https://img.shields.io/badge/MacOS-13+-white?logo=apple&logoColor=white&style=flat-square)
 ![GitHub License](https://img.shields.io/github/license/antoniopantaleo/conventional-commit-git-hook?style=flat-square&color=red&cacheSeconds=0)
 [![Test Action](https://img.shields.io/github/actions/workflow/status/antoniopantaleo/conventional-commit-git-hook/test.yml?branch=master&label=test&style=flat-square&logo=github)](https://github.com/antoniopantaleo/conventional-commit-git-hook/actions/workflows/test.yml)
-![Code Coverage](https://img.shields.io/codecov/c/github/antoniopantaleo/conventional-commit-git-hook?style=flat-square&logo=codecov&logoColor=white)
+![Code Coverage](https://img.shields.io/codecov/c/github/antoniopantaleo/conventional-commit-git-hook?style=flat-square&logo=codecov&logoColor=white&cacheSeconds=0)
 
 This Swift Package allows you to equip your projects with a git hook that enforces the
 [conventional commits](https://www.conventionalcommits.org) format. 
