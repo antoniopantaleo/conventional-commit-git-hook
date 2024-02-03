@@ -11,6 +11,9 @@ let package = Package(
             targets: ["Hook"]
         )
     ],
+    dependencies: [
+        .package(url: "https://github.com/apple/swift-log.git", from: "1.0.0")
+    ],
     targets: [
         .target(
             name: "ConventionalCommit",
