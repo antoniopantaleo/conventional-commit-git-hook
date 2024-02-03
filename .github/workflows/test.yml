@@ -15,7 +15,7 @@ jobs:
     - name: Build package
       run: swift build --arch x86_64
     - name: Run unit tests
-      run: swift test --very-verbose --enable-code-coverage
+      run: swift test --very-verbose --enable-code-coverage --arch x86_64
     - name: Prepare code coverage
       run: |
         xcrun llvm-cov \
