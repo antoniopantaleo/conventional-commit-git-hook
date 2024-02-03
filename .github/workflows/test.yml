@@ -8,7 +8,7 @@ on:
 
 jobs:
   run_tests:
-    runs-on: macos-13
+    runs-on: macos-13-xlarge
     name: Run test suite
     steps:
     - uses: actions/checkout@v3
@@ -21,9 +21,9 @@ jobs:
         xcrun llvm-cov \
         export \
         -format="lcov" \
-        .build/x86_64-apple-macosx/debug/ConventionalCommitPackageTests.xctest/Contents/MacOS/ConventionalCommitPackageTests \
+        .build/arm64-apple-macosx/debug/ConventionalCommitPackageTests.xctest/Contents/MacOS/ConventionalCommitPackageTests \
         -instr-profile \
-        .build/x86_64-apple-macosx/debug/codecov/default.profdata > coverage.lcov
+        .build/arm64-apple-macosx/debug/codecov/default.profdata > coverage.lcov
     - name: Upload coverage reports
       uses: codecov/codecov-action@v3
       with:
